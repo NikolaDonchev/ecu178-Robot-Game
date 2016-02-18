@@ -1,6 +1,6 @@
-import tkinter
+import Tkinter
 
-window = tkinter.Tk()
+window = Tkinter.Tk()
 
 def motion(event):
     """Functio which gets coordinates
@@ -11,7 +11,7 @@ def motion(event):
 window.title("Game")
 window.geometry("400x400")
 
-label = tkinter.Label(window, text="Home")
+label = Tkinter.Label(window, text="Home")
 label.pack()
 
 window.bind('<Motion>', motion)
