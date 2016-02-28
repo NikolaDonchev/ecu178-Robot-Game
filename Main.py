@@ -1,67 +1,51 @@
 import sys
 import time
 import pygame
+from engine.engine import *
 
+# Initialising pygame
+pygame.init()
 
-#Main GUI file
-#Ver 1.01
-
-pygame.init()   #Intialising the module
-
-###Setting the resolution
+# Setting the resolution
 display_width = 600
-display_height = 500
+display_height = 505
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 
-###Setting the color
-
+# Setting the color
 black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
 red_bright = (150,0,0)
-green = (0, 255, 0)
-green_bright =(0,150,0)
+green = (156, 219, 151)
+green_bright = (0,150,0)
 blue = (0, 0, 255)
 blue_bright = (0, 0 , 150)
 
-#Images
-carImage = pygame.image.load('car.gif')
-backgroundImage = pygame.image.load('Main_Screen.png')
-gameImage = pygame.image.load('Delivering_objects.png')
-blankImage = pygame.image.load('selection_screen.png')
 
-
-
-
-
-###The game clock//used for FPS
+# The game clock//used for FPS
 
 clock = pygame.time.Clock()
 
-###Setting the title
+# Setting the title
 
 pygame.display.set_caption('Amazon Delivery Service')
-###Functions for displaying images
-
-def background_image(x, y):
-    gameDisplay.blit(backgroundImage, (x,y))
-x = 0
-y = 0
 
 def blank_image(x, y):
     gameDisplay.blit(blankImage, (x, y))
 
-def game_image(x, y):
-    gameDisplay.blit(gameImage, (x,y))
 
-def car(x, y):
-    gameDisplay.blit(carImage, (x, y))
 
-#Displaying Text to screen
+
+# def car(x, y):
+#     gameDisplay.blit(carImage, (x, y))
+
+
+# Displaying Text to screen
 
 def text_objects(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
+
 
 def message_display(text):
     largeText = pygame.font.Font('freesansbold.ttf',50)
@@ -69,14 +53,16 @@ def message_display(text):
     TextRect.center = ((display_width/2),100)
     gameDisplay.blit(TextSurf, TextRect)
 
+
 def logo():
     message_display("Amazon Delivery Guise")
 
-#button Function
+# button Function
 b_width = 163
 b_height = 48
 
-def button(msg,x,y,w,h,ic,ac, action=None):
+
+def button(msg, x, y, w, h, ic, ac, action=None):
 
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -86,7 +72,7 @@ def button(msg,x,y,w,h,ic,ac, action=None):
 
         if click[0] == 1 and action != None:
             if action == "play":
-                game_select_items_menu()
+                game_loop()
             elif action == "Exit":
                 pygame.quit()
                 quit()
@@ -104,7 +90,7 @@ def button(msg,x,y,w,h,ic,ac, action=None):
     gameDisplay.blit(textSurf, textRect)
 
 
-#Game Intro Loop
+# Game Intro Loop
 def game_intro():
 
     intro = True
@@ -115,38 +101,41 @@ def game_intro():
                 pygame.quit()
                 quit()
 
-        background_image(x, y)
+        load_image(gameDisplay, mainBackground)
 
-        button("Start", 220, 280, 163, 48, green, green_bright, "play")
-        button("Options", 220, 340, 163, 48, green, green_bright, "Options")
-        button("Exit", 220, 400, 163, 48, green, green_bright, "Exit")
+        button("START", 220, 280, 163, 48, green, green_bright, "play")
+        button("OPTIONS", 220, 340, 163, 48, green, green_bright, "Options")
+        button("EXIT", 220, 400, 163, 48, green, green_bright, "Exit")
         button("Test", 220, 460, 163, 35, green, green_bright, "Test")
-
 
         pygame.display.update()
 
-        clock.tick(80) #Setting the fps
+        # Setting the fps
+        clock.tick(80)
+
 
 def game_select_items_menu():
 
-    gameSelectItems = False
-    while not gameSelectItems:
+    gameSelectItems = True
+    while gameSelectItems:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
-        blank_image(x, y)
+        blank_image(gameDisplay, mainBackground)
 
 
         # button("Back", 220, 280, 163, 48, green, green_bright, "play")
 
         pygame.display.update()
 
-        clock.tick(80) #Setting the fps
+        # Setting the fps
+        clock.tick(80)
 
-#Game Options Loop
+
+# Game Options Loop
 def game_options():
 
     gameExit = False
@@ -157,7 +146,6 @@ def game_options():
                 pygame.quit()
                 quit()
 
-
         button("Volume", 220, 280, 163, 48, green, green_bright, "play")
         button("Music", 220, 340, 163, 48, green, green_bright)
         button("Randomness", 220, 400, 163, 48, green, green_bright,)
@@ -165,16 +153,14 @@ def game_options():
 
         pygame.display.update()
 
-        clock.tick(80) #Setting the fps
+        # Setting the fps
+        clock.tick(80)
 
 
-
-
-
-#Main Game Loop
+# Main Game Loop
 def game_loop():
 
-    #car variables for testing purposes
+    # car variables for testing purposes
     car_x = 150
     car_y = 150
     car_x_change = 0
@@ -187,7 +173,7 @@ def game_loop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            #Events for keys pressed down
+            # Events for keys pressed down
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     car_x_change = -5
@@ -197,26 +183,25 @@ def game_loop():
                     car_y_change = -5
                 elif event.key == pygame.K_DOWN:
                     car_y_change = 5
-            #Events for keys released
+            # Events for keys released
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     car_x_change = 0
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     car_y_change = 0
 
-            print(event) #just prints events
+            print(event) # just prints events
 
         car_x += car_x_change
         car_y += car_y_change
 
-        game_image(x, y)
-        car(car_x, car_y)
+        load_image(gameDisplay, gameImage)
+        load_drone(gameDisplay, droneImage, car_x, car_y)
         button("Back", 220, 460, 40, 40, green, green_bright, "Intro")
         pygame.display.update()
 
-        clock.tick(80) #Setting the fps
-
-
+        clock.tick(80)
+        # Setting the fps
 
 
 game_intro()
