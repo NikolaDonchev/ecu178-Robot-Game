@@ -6,7 +6,7 @@ from views.Views import StartScreen
 mainBackground2 = pygame.image.load('assets/main_menu_background.png')
 
 engine = GameEngine()
-engine.change_view(StartScreen(), mainBackground2)
+engine.change_view(StartScreen())
 engine.main_loop()
 
 pygame.quit()
