@@ -1,4 +1,8 @@
 import sys, pygame
+from gui.Controls import Button
+
+white = (255, 255, 255)
+black = (0, 0, 0)
 
 class GameEngine():
     def __init__(self):
@@ -6,8 +10,8 @@ class GameEngine():
         pygame.display.set_caption('Amazon Delivery Service')
         self.view = None
         self.clock = pygame.time.Clock()
-        self.fps = 60
-        self.clock = self.clock.tick(self.fps)
+        self.fps = 10
+        # self.clock = self.clock.tick(self.fps)
         self.display = pygame.display.set_mode((600, 500))
 
     def main_loop(self):
@@ -17,9 +21,10 @@ class GameEngine():
                     pygame.quit()
                     sys.exit()
 
-            Button("START", 220, 280, 163, 48, green, green_bright, "play")
+            # Button("START", 220, 280, 163, 48, white, black, "play")
 
             pygame.display.flip()
+
 
     def change_view(self, view, image):
         self.display.blit(image, (0, 0))

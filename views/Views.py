@@ -6,6 +6,5 @@ green_bright = (0,150,0)
 
 class StartScreen():
     def __init__(self):
-        # Button.create_button("START", 220, 280, 163, 48, green, green_bright, "play")
-        pass
+        Button("START", 220, 280, 163, 48, green, green_bright, "play")
         # button.create_button("START", 220, 280, 163, 48, green, green_bright, "play")
