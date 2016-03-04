@@ -67,9 +67,13 @@ class SelectionScreen():
             
             button2("Apple iPad", 200, 250, 168, 48, white, orange, 189, 30, "Apple iPad")
             
-            button2(
+            button2("Perfume", 30, 250, 163, 48, white, orange, 45, 65, "Perfume")
             
+            #Bottom of GUI Buttons 
             
+            button2("START", 374, 370, 163, 48, green, green_bright, 0, 0, "START")
+            
+            button2("BACK", 374, 430, 163, 48, green, green_bright, 0, 0, "BACK")
             
             
             
