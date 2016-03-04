@@ -28,6 +28,56 @@ class StartScreen():
     def add_object(self, obj):
         self.objects.append(obj)
 
+global clickedButtons,sumOfCosts,textDisp
+clickedButtons=[]
+sumOfCosts=[0,0]
+textDisp = None
+
+def addCostsAndDisplay(msg,cost,weight):    #Add up the cost and the weight of item
+    global sumOfCosts
+    sumOfCosts[0]+=cost
+    sumOfCosts[1]+=weight
+
+    basicfont = pygame.font.SysFont(None, 27)
+    text = basicfont.render('adding '+str(msg)+' adds up to '+str(sumOfCosts[0])+' and weighs '+str(sumOfCosts[1]), True, (255, 0, 0), (255, 255, 255))
+    return text
+    
+
+def button2(msg,x,y,w,h,ic,ac,cost=1,weight=1, action=None):
+    global clickedButtons,textDisp
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    #Button Function
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, ac, (x,y,w,h))
+
+        if click[0] == 1 and action != None:
+            if not (msg in clickedButtons):
+                #Save that this button has been clicked
+                clickedButtons.append(msg)
+                textDisp=addCostsAndDisplay(msg,cost,weight)
+            if action == "START":
+                game_loop()
+            elif action == "BACK":
+                game_intro()
+                quit()
+
+            elif action == "Playstation 4":
+                print("")
+    else:
+        #Check if this button has been clicked
+        if (msg in clickedButtons):
+            pygame.draw.rect(gameDisplay, ac, (x,y,w,h))
+        else:
+            pygame.draw.rect(gameDisplay, ic, (x,y,w,h))
+
+#Text Font and Text Position
+    smallText = pygame.font.Font("freesansbold.ttf", 20)
+    textSurf, textRect = text_objects(msg, smallText)
+    textRect.center = ( (x+(w/2)), (y+(h/2)) )
+    gameDisplay.blit(textSurf, textRect)
+
 class SelectionScreen():
     def game_select_items_menu():
         global textDisp
@@ -74,6 +124,10 @@ class SelectionScreen():
             button2("START", 374, 370, 163, 48, green, green_bright, 0, 0, "START")
             
             button2("BACK", 374, 430, 163, 48, green, green_bright, 0, 0, "BACK")
+            
+            pygame.display.update()
+            
+            clock.tick(80)
             
             
             
