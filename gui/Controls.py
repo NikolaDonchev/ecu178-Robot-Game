@@ -80,14 +80,3 @@ class Button(pygame.Surface):
                 # ChangeV("select")
             else:
                 self.draw(False)
-
-
-        #     if self.get_rect().collidepoint(event.pos):
-        #         print("hmm")
-        # self.mouse_clicked()
-
-
-class CheckBox():
-
-    def __init__(self):
-        pass

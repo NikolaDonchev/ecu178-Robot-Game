@@ -1,5 +1,5 @@
 import sys, pygame
-# from gui.Controls import Button, Background
+from gui.Controls import Button, Background
 
 
 white = (255, 255, 255)
@@ -17,10 +17,10 @@ class GameEngine():
         pygame.display.set_caption('Automated Delivery Service')
         self.view = None
         self.clock = pygame.time.Clock()
-        self.fps = 5
+        self.fps = 20
         self.event = None
         self.objects = None
-        self.display = Gui().display
+        self.display = None
         self.pressed = None
 
     def main_loop(self, objects):
@@ -38,6 +38,7 @@ class GameEngine():
 
 
     def change_view(self, view):
+        self.display = pygame.display.set_mode((600,500))
         self.view = view
 
     def add_object(self, obj):
@@ -46,7 +47,7 @@ class GameEngine():
     def send_event(self):
         print(self.event)
 
-class StartScreen(Gui):
+class StartScreen():
     def __init__(self):
         self.display = Gui().display
         self.pressed = None
@@ -64,7 +65,7 @@ class StartScreen(Gui):
         GameEngine().main_loop(self.objects)
 
 
-class SelectionScreen(Gui):
+class SelectionScreen():
     def __init__(self):
         self.display = Gui().display
         self.objects = [
