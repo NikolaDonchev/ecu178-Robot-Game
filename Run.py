@@ -1,12 +1,8 @@
 import pygame
-from engine.Engine import GameEngine
-from views.Views import StartScreen
-
-# this will be moved to components soon
-mainBackground2 = pygame.image.load('assets/main_menu_background.png')
+from engine.Engine import GameEngine, StartScreen
+from gui.Controls import *
 
 engine = GameEngine()
 engine.change_view(StartScreen())
-engine.main_loop()
 
 pygame.quit()
