@@ -1,7 +1,7 @@
 import pygame
-from engine.Engine import GameEngine, StartScreen
+from engine.Engine import Engine, StartScreen
 
-engine = GameEngine()
+engine = Engine()
 engine.change_view(StartScreen())
 
 

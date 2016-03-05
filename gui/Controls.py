@@ -2,7 +2,7 @@ import pygame, sys
 
 black = (0, 0, 0)
 white = (255, 255, 255)
-mainBackground2 = pygame.image.load('assets/main_menu_background.png')
+
 
 
 def text_objects(text, font):
@@ -11,11 +11,12 @@ def text_objects(text, font):
 
 class Background():
 
-    def __init__(self, display):
+    def __init__(self, display, background):
         self.display = display
+        self.background = background
 
     def draw(self):
-        self.display.blit(mainBackground2, (0, 0))
+        self.display.blit(self.background, (0, 0))
 
     def update(self, event):
         self.draw()
