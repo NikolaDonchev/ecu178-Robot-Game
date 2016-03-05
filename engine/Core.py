@@ -1,4 +1,5 @@
 import pygame, sys
+from random import randint as r
 
 droneImage = pygame.image.load('assets/drone.png')
 backgroundImage = pygame.image.load('assets/main_background.png')
@@ -16,6 +17,8 @@ class Core():
         self.drone_y = 150
         self.drone_x_update = 0
         self.drone_y_update = 0
+        self.delivery_object_x = 150
+        self.delivery_object_y = 300
 
         while 1:
             for event in pygame.event.get():
@@ -46,6 +49,27 @@ class Core():
 
             self.display.blit(backgroundImage, (0, 0))
             self.drone(self.drone_x, self.drone_y)
+            self.drone(self.delivery_object_x, self.delivery_object_y)
+
+            if self.drone_x > self.delivery_object_x:
+                self.drone_x = self.drone_x - 1
+                if self.drone_x == self.delivery_object_x:
+                     pass
+            else:
+                self.drone_x = self.drone_x + 1
+                if self.drone_x == self.drone_x:
+                    pass
+            if self.drone_y < self.delivery_object_y:
+                self.drone_y = self.drone_y + 1
+                if self.drone_y == self.drone_y:
+                    pass
+            else:
+                self.drone_y = self.drone_y - 1
+                if self.drone_y == self.drone_y:
+                    pass
+
+            if self.drone_x == self.delivery_object_x and self.drone_y == self.drone_y:
+                self.delivery_object_x += r(100, 150)
 
             pygame.display.update()
             self.clock.tick(80)

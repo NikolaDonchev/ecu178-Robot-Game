@@ -21,10 +21,10 @@ class Engine():
         self.clock = pygame.time.Clock()
         self.fps = 120
         self.event = None
-        self.objects = None
-        self.display = None
-        self.pressed = None
-        self.handler = None
+        # self.objects = None
+        # self.display = None
+        # self.pressed = None
+        # self.handler = None
 
     def main_loop(self, objects):
         while 1:
@@ -77,6 +77,7 @@ class StartScreen():
 class SelectionScreen():
     def __init__(self):
         self.display = Gui().display
+        self.selectedObjects = []
         self.objects = [
             Background(self.display, selectionScreenBackground),
             Button(self.display, "GO", 220, 280, 163, 48, green, green_bright, "core")
