@@ -2,11 +2,15 @@ import pygame, sys
 from random import randint as r
 
 droneImage = pygame.image.load('assets/drone.png')
+houseImage = pygame.image.load('assets/house.png')
 backgroundImage = pygame.image.load('assets/main_background.png')
 
 class Core():
     def drone(self, x, y):
         self.display.blit(droneImage, (x, y))
+
+    def house(self, x, y):
+        self.display.blit(houseImage, (x, y))
 
     def __init__(self):
         self.display = pygame.display.set_mode((600,500))
@@ -49,7 +53,7 @@ class Core():
 
             self.display.blit(backgroundImage, (0, 0))
             self.drone(self.drone_x, self.drone_y)
-            self.drone(self.delivery_object_x, self.delivery_object_y)
+            self.house(self.delivery_object_x, self.delivery_object_y)
 
             if self.drone_x > self.delivery_object_x:
                 self.drone_x = self.drone_x - 1

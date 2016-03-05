@@ -1,9 +1,10 @@
 import sys, pygame
-from gui.Controls import Button, Background
+from gui.Controls import Button, Background, CheckBox
 from engine.Core import Core
 
 menuBackground = pygame.image.load('assets/main_menu_background.png')
 selectionScreenBackground = pygame.image.load('assets/selection_screen_background.png')
+optionsBackground = pygame.image.load('assets/options_background.png')
 white = (255, 255, 255)
 black = (0, 0, 0)
 green = (156, 219, 151)
@@ -16,15 +17,10 @@ class Gui():
 class Engine():
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption('Automated Delivery Service')
         self.view = None
         self.clock = pygame.time.Clock()
         self.fps = 120
         self.event = None
-        # self.objects = None
-        # self.display = None
-        # self.pressed = None
-        # self.handler = None
 
     def main_loop(self, objects):
         while 1:
@@ -64,6 +60,7 @@ class Engine():
 class StartScreen():
     def __init__(self):
         self.display = Gui().display
+        pygame.display.set_caption('Automated Delivery Service')
         self.objects = [
             Background(self.display, menuBackground),
             Button(self.display, "START", 220, 280, 163, 48, green, green_bright, "play"),
@@ -77,10 +74,15 @@ class StartScreen():
 class SelectionScreen():
     def __init__(self):
         self.display = Gui().display
-        self.selectedObjects = []
+        pygame.display.set_caption("Select items for delivery")
+        self.selectedItems = []
+        self.numberOfSelectedItems = 0
         self.objects = [
             Background(self.display, selectionScreenBackground),
-            Button(self.display, "GO", 220, 280, 163, 48, green, green_bright, "core")
+            Button(self.display, "GO", 410, 430, 163, 48, green, green_bright, "core"),
+            Button(self.display, "BACK", 40, 430, 163, 48, green, green_bright, "home"),
+            CheckBox(self.display, 40, 100),
+            CheckBox(self.display, 280, 100)
         ]
 
         Engine().main_loop(self.objects)
@@ -89,7 +91,10 @@ class OptionsScreen():
     def __init__(self):
         self.display = Gui().display
         self.objects = [
-            Button(self.display, "BACK", 220, 320, 163, 48, green, green_bright, "home")
+            Background(self.display, optionsBackground),
+            Button(self.display, "MUSIC", 220, 280, 163, 48, green, green_bright, ""),
+            Button(self.display, "ITEMS", 220, 340, 163, 48, green, green_bright, ""),
+            Button(self.display, "BACK", 220, 400, 163, 48, green, green_bright, "home")
         ]
 
         Engine().main_loop(self.objects)
