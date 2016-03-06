@@ -13,9 +13,10 @@ class Core():
         self.display.blit(houseImage, (x, y))
 
     def __init__(self):
-        self.display = pygame.display.set_mode((600,500))
+        self.display = pygame.display.set_mode((600,510))
         # self.display.set_caption
         self.clock = pygame.time.Clock()
+        pygame.display.set_caption("Delivering items")
         # self.fps = 120
         self.drone_x = 150
         self.drone_y = 150
@@ -50,7 +51,6 @@ class Core():
 
             self.drone_x += self.drone_x_update
             self.drone_y += self.drone_y_update
-
             self.display.blit(backgroundImage, (0, 0))
             self.drone(self.drone_x, self.drone_y)
             self.house(self.delivery_object_x, self.delivery_object_y)
