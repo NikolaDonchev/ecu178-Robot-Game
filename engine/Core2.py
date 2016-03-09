@@ -1,23 +1,18 @@
 import pygame, sys
 from random import randint as r
 from gui.Controls import CreateTitle
-from engine.Core2 import Core2
 
 droneImage = pygame.image.load('assets/drone.png')
 houseImage = pygame.image.load('assets/house.png')
 deliveryBox = pygame.image.load('assets/delivery_box.png')
 backgroundImage = pygame.image.load('assets/main_background.png')
 
-class Core():
-    """
-    Core of the item collection
-    The selected items are being collected
-    """
+class Core2():
     def drone(self, x, y):
         self.display.blit(droneImage, (x, y))
 
-    def box(self, x, y):
-        self.display.blit(deliveryBox, (x, y))
+    def house(self, x, y):
+        self.display.blit(houseImage, (x, y))
 
     def __init__(self):
         self.display = pygame.display.set_mode((600,510))
@@ -62,7 +57,7 @@ class Core():
             self.drone_y += self.drone_y_update
             self.display.blit(backgroundImage, (0, 0))
             self.drone(self.drone_x, self.drone_y)
-            self.box(self.delivery_object_x, self.delivery_object_y)
+            self.house(self.delivery_object_x, self.delivery_object_y)
             if self.count == 1:
                 self.currentNumber = "0"
             elif self.count == 2:
@@ -71,7 +66,7 @@ class Core():
                 self.currentNumber = "2"
             else:
                 self.currentNumber = "3"
-            CreateTitle(self.display, "Collected objects: " + self.currentNumber + "/3", 24, 40).draw()
+            CreateTitle(self.display, "Delivered objects: " + self.currentNumber + "/3", 24, 40).draw()
 
             if self.drone_x > self.delivery_object_x:
                 self.drone_x = self.drone_x - 1
@@ -94,9 +89,8 @@ class Core():
                 self.delivery_object_x += r(100, 150)
                 self.count += 1
                 if self.count == 4:
-                    Core2()
-                    # If all of the boxes are collected the second
-                    # core is called and the drone starts delivering
+                    print("YEAH")
+                # self.delivery_object_y += r(40, 80)
 
             pygame.display.update()
             self.clock.tick(80)
