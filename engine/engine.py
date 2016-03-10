@@ -1,6 +1,8 @@
 import sys, pygame
 from gui.Controls import *
 from engine.Core import Core
+import json
+from pprint import pprint
 
 menuBackground = pygame.image.load('assets/main_menu_background.png')
 selectionScreenBackground = pygame.image.load('assets/selection_screen_background.png')
@@ -101,30 +103,34 @@ class StartScreen():
 
 
 class SelectionScreen():
+
     def __init__(self):
         self.display = Gui().display
         pygame.display.set_caption("Select items for delivery")
         self.selectedItems = [] # empty array for the selected items
         self.numberOfSelectedItems = 0
+        self.checkboxes = []
         self.objects = [
             Background(self.display, selectionScreenBackground),
             CreateTitle(self.display, "Pick three items for delivery", 24, 40), # Title from the header
-            CheckBox(self.display, "LEGO FRIENDS", 18, 0.5, 24, 105, "first", self.selectedItems),
-            CheckBox(self.display, "Xbox 360 Controller", 25, 0.5, 238, 105, "second"),
-            CheckBox(self.display, "Amazon m-Pad", 5, 0.5, 24, 192, "third"),
-            CheckBox(self.display, "HAVIT MX12 Mouse", 12, 0.5, 238, 192, ""),
-            CheckBox(self.display, "ASUS 21.5” Monitor", 90, 2, 24, 280, ""),
-            CheckBox(self.display, "HP 255 G3 Laptop", 199, 2.5, 238, 280, ""),
-            CheckBox(self.display, "MILLENNIUM Falcon", 215, 3, 24, 367, ""),
-            CheckBox(self.display, "SHOX Bike Helmet", 115, 4, 238, 367, ""),
             CreateRect(self.display, white, 124, 340, 452, 105), # creating rectangle as background for the sorting container
             CreateRect(self.display, white, 552, 41, 24, 454), # creating another container for "Back" and "Go" buttons
             Button(self.display, "GO", 440, 459, 120, 30, green, green_bright, "core"),
             Button(self.display, "BACK", 40, 459, 120, 30, green, green_bright, "home")
         ]
 
+        with open('products.json') as data_file:
+            data = json.load(data_file)
 
-        Engine().main_loop(self.objects)
+        for singleProduct in data:
+            self.add_checkbox(CheckBox(self.display, singleProduct['productTitle'], singleProduct['productPrice'], singleProduct['productWeight'], singleProduct['x_pos'], singleProduct['y_pos'], singleProduct['productAction']))
+
+        allObjects = self.objects + self.checkboxes # merging the objects array with the main components and the array full of checkboxes
+
+        Engine().main_loop(allObjects)
+
+    def add_checkbox(self, checkbox):
+        self.checkboxes.append(checkbox)
 
 class OptionsScreen():
     def __init__(self):
