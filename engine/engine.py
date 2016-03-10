@@ -50,6 +50,7 @@ class Engine():
 
                 if self.handler == "first":
                     self.change_stage("firstCheck")
+
                 elif self.handler == "second":
                     self.change_stage("secondCheck")
                 elif self.handler == "third":

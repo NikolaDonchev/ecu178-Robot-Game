@@ -1,7 +1,9 @@
 import pygame, sys
 from random import randint as r
-from gui.Controls import CreateTitle
-from engine.Core2 import Core2
+from gui.Controls import CreateTitle, Button, Background
+
+green = (156, 219, 151)
+white = (250, 250, 250)
 
 droneImage = pygame.image.load('assets/drone.png')
 houseImage = pygame.image.load('assets/house.png')
@@ -18,6 +20,97 @@ class Core():
 
     def box(self, x, y):
         self.display.blit(deliveryBox, (x, y))
+
+    def __init__(self):
+        self.display = pygame.display.set_mode((600,510))
+        # self.display.set_caption
+        self.clock = pygame.time.Clock()
+        pygame.display.set_caption("Delivering items")
+        self.fps = 80
+        self.drone_x = 150
+        self.drone_y = 150
+        self.drone_x_update = 0
+        self.drone_y_update = 0
+        self.delivery_object_x = 150
+        self.delivery_object_y = 300
+        self.count = 0
+        self.currentNumber = 0
+        self.objects = []
+        self.handler = None
+
+        while 1:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+            for object in self.objects:
+                object.update(event)
+                self.handler = object.update(event)
+
+
+            self.drone_x += self.drone_x_update
+            self.drone_y += self.drone_y_update
+            # self.display.blit(backgroundImage, (0, 0))
+            self.drone(self.drone_x, self.drone_y)
+            self.box(self.delivery_object_x, self.delivery_object_y)
+            if self.count == 1:
+                self.currentNumber = "0"
+            elif self.count == 2:
+                self.currentNumber = "1"
+            elif self.count == 3:
+                self.currentNumber = "2"
+            else:
+                self.currentNumber = "3"
+            CreateTitle(self.display, "Collected objects: " + self.currentNumber + "/3", 24, 40).draw()
+
+            self.objects = [
+                Background(self.display, backgroundImage),
+            ]
+
+            if self.drone_x > self.delivery_object_x:
+                self.drone_x = self.drone_x - 1
+                if self.drone_x == self.delivery_object_x:
+                     pass
+            else:
+                self.drone_x = self.drone_x + 1
+                if self.drone_x == self.drone_x:
+                    pass
+            if self.drone_y < self.delivery_object_y:
+                self.drone_y = self.drone_y + 1
+                if self.drone_y == self.drone_y:
+                    pass
+            else:
+                self.drone_y = self.drone_y - 1
+                if self.drone_y == self.drone_y:
+                    pass
+
+            if self.drone_x == self.delivery_object_x and self.drone_y == self.drone_y:
+                self.delivery_object_x += r(100, 150)
+                self.count += 1
+                if self.count == 4:
+                    Core2()
+                    # If all of the boxes are collected the second
+                    # core is called and the drone starts delivering
+
+            pygame.display.update()
+
+            if self.handler == "pause":
+                print("pause clicked")
+                self.fps = 0
+
+            print(self.fps)
+            self.clock.tick(self.fps)
+
+    def update_fps(self, fps):
+        self.fps = fps
+
+class Core2():
+    def drone(self, x, y):
+        self.display.blit(droneImage, (x, y))
+
+    def house(self, x, y):
+        self.display.blit(houseImage, (x, y))
 
     def __init__(self):
         self.display = pygame.display.set_mode((600,510))
@@ -62,7 +155,7 @@ class Core():
             self.drone_y += self.drone_y_update
             self.display.blit(backgroundImage, (0, 0))
             self.drone(self.drone_x, self.drone_y)
-            self.box(self.delivery_object_x, self.delivery_object_y)
+            self.house(self.delivery_object_x, self.delivery_object_y)
             if self.count == 1:
                 self.currentNumber = "0"
             elif self.count == 2:
@@ -71,7 +164,7 @@ class Core():
                 self.currentNumber = "2"
             else:
                 self.currentNumber = "3"
-            CreateTitle(self.display, "Collected objects: " + self.currentNumber + "/3", 24, 40).draw()
+            CreateTitle(self.display, "Delivered objects: " + self.currentNumber + "/3", 24, 40).draw()
 
             if self.drone_x > self.delivery_object_x:
                 self.drone_x = self.drone_x - 1
@@ -94,9 +187,16 @@ class Core():
                 self.delivery_object_x += r(100, 150)
                 self.count += 1
                 if self.count == 4:
-                    Core2()
-                    # If all of the boxes are collected the second
-                    # core is called and the drone starts delivering
+                    print("YEAH")
+                # self.delivery_object_y += r(40, 80)
 
             pygame.display.update()
             self.clock.tick(80)
+
+
+class PauseGame():
+    def __init__(self):
+        pass
+
+    def update(self):
+        pass

@@ -24,7 +24,7 @@ class Background():
     def draw(self):
         self.display.blit(self.background, (0, 0))
 
-    def update(self, event, callback):
+    def update(self, event, callback=None):
         self.draw()
 
 class CreateRect():
@@ -111,7 +111,7 @@ class Button(pygame.Surface):
         textRect.center = ((self.x + (self.w / 2)), (self.y + (self.h / 2) - 1))
         self.display.blit(textSurf, textRect)
 
-    def update(self, event, callback):
+    def update(self, event, callback=None):
         self.draw()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.x+self.w > event.pos[0] > self.x and self.y+self.h > event.pos[1] > self.y:
