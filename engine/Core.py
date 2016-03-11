@@ -1,6 +1,8 @@
 import pygame, sys
 from random import randint as r
 from gui.Controls import CreateTitle, Button, Background
+from PDFInvoiceExport import InvoiceView
+import json
 
 green = (156, 219, 151)
 white = (250, 250, 250)
@@ -94,12 +96,6 @@ class Core():
                     # core is called and the drone starts delivering
 
             pygame.display.update()
-
-            if self.handler == "pause":
-                print("pause clicked")
-                self.fps = 0
-
-            print(self.fps)
             self.clock.tick(self.fps)
 
     def update_fps(self, fps):
@@ -126,6 +122,7 @@ class Core2():
         self.delivery_object_y = 300
         self.count = 0
         self.currentNumber = 0
+        self.selectedItems = []
 
         while 1:
             for event in pygame.event.get():
@@ -183,20 +180,18 @@ class Core2():
                 if self.drone_y == self.drone_y:
                     pass
 
+            with open('products.json') as data_file:
+                data = json.load(data_file)
+
+            for singleProduct in data[:3]:
+                self.selectedItems.append(singleProduct['productTitle'])
+
             if self.drone_x == self.delivery_object_x and self.drone_y == self.drone_y:
                 self.delivery_object_x += r(100, 150)
                 self.count += 1
                 if self.count == 4:
-                    print("YEAH")
+                    InvoiceView(self.selectedItems)
                 # self.delivery_object_y += r(40, 80)
 
             pygame.display.update()
             self.clock.tick(80)
-
-
-class PauseGame():
-    def __init__(self):
-        pass
-
-    def update(self):
-        pass
