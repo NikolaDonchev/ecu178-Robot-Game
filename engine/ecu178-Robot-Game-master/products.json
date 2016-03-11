@@ -1,0 +1,66 @@
+[
+  {
+    "productTitle": "LEGO FRIENDS",
+    "productPrice": 18,
+    "productWeight": 0.5,
+    "productAction": "first",
+    "x_pos": 24,
+    "y_pos": 105
+  },
+  {
+    "productTitle": "Xbox 360 Controller",
+    "productPrice": 25,
+    "productWeight": 0.5,
+    "productAction": "second",
+    "x_pos": 238,
+    "y_pos": 105
+  },
+  {
+    "productTitle": "Amazon m-Pad",
+    "productPrice": 5,
+    "productWeight": 0.5,
+    "productAction": "third",
+    "x_pos": 24,
+    "y_pos": 192
+  },
+  {
+    "productTitle": "HAVIT MX12 Mouse",
+    "productPrice": 12,
+    "productWeight": 0.5,
+    "productAction": "forth",
+    "x_pos": 238,
+    "y_pos": 192
+  },
+  {
+    "productTitle": "ASUS 21.5” Monitor",
+    "productPrice": 90,
+    "productWeight": 2,
+    "productAction": "fifth",
+    "x_pos": 24,
+    "y_pos": 280
+  },
+  {
+    "productTitle": "HP 255 G3 Laptop",
+    "productPrice": 199,
+    "productWeight": 2.5,
+    "productAction": "sixth",
+    "x_pos": 238,
+    "y_pos": 280
+  },
+  {
+    "productTitle": "MILLENNIUM Falcon",
+    "productPrice": 215,
+    "productWeight": 3,
+    "productAction": "seventh",
+    "x_pos": 24,
+    "y_pos": 367
+  },
+  {
+    "productTitle": "SHOX Bike Helmet",
+    "productPrice": 115,
+    "productWeight": 4,
+    "productAction": "eight",
+    "x_pos": 238,
+    "y_pos": 367
+  }
+]
