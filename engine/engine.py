@@ -26,7 +26,7 @@ class Engine():
         self.event = None
         self.selectedItems = []
 
-    def main_loop(self, objects):
+    def main_loop(self, objects): #The Main game loop, everything here takes place into the game
         while 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -72,7 +72,7 @@ class Engine():
             self.clock.tick(self.fps)
             pygame.display.flip()
 
-    def bubble_sort(self,unsorted,sorted,selectedItems,tempArray):
+    def bubble_sort(self,unsorted,sorted,selectedItems,tempArray): #Bubble sort, sorts the items by their prices
         unsorted[selectedItems] == True
         sorted[selectedItems] == False
         tempArray()
@@ -100,7 +100,7 @@ class Engine():
         if self.linearSearch(obj, self.selectedItems) != True:
             self.selectedItems.append(obj)
 
-    def linearSearch(self, item, array):
+    def linearSearch(self, item, array): #Linear Search prevents multiple selections of items
         found = False
         position = 0
         while position < len(array) and not found:
