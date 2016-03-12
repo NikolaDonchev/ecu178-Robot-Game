@@ -1,6 +1,7 @@
 import sys, pygame
 from gui.Controls import *
-from engine.Core import Core
+from engine.engine import *
+from engine.Core import *
 import json
 from pprint import pprint
 
@@ -41,7 +42,7 @@ class Engine():
                 elif self.handler == "option":
                     OptionsScreen()
                 elif self.handler == "core":
-                    Core()
+                     Core()
                 elif self.handler == "home":
                     StartScreen()
                 elif self.handler == "exit":
@@ -55,7 +56,7 @@ class Engine():
                     self.change_stage("secondCheck")
                 elif self.handler == "third":
                     self.change_stage("thirdCheck")
-                 elif self.handler == "fourth":
+                elif self.handler == "fourth":
                         self.change_stage("fourthCheck")
                 elif self.handler == "fifth":
                         self.change_stage("fifthCheck")

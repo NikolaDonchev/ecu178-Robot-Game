@@ -1,5 +1,5 @@
 import pygame, sys
-from weasyprint import HTML, CSS
+#from weasyprint import HTML, CSS
 from gui.Controls import CreateTitle, Background, Button
 import time
 

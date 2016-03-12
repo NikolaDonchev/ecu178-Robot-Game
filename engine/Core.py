@@ -1,7 +1,7 @@
 import pygame, sys
 from random import randint as r
 from gui.Controls import CreateTitle, Button, Background
-from PDFInvoiceExport import InvoiceView
+#from PDFInvoiceExport import InvoiceView
 import json
 
 green = (156, 219, 151)
@@ -190,7 +190,8 @@ class Core2():
                 self.delivery_object_x += r(100, 150)
                 self.count += 1
                 if self.count == 4:
-                    InvoiceView(self.selectedItems)
+                    pass
+                    # InvoiceView(self.selectedItems)
                 # self.delivery_object_y += r(40, 80)
 
             pygame.display.update()
