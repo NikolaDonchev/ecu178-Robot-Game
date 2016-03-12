@@ -120,7 +120,7 @@ class SelectionScreen():
             Button(self.display, "BACK", 40, 459, 120, 30, green, green_bright, "home")
         ]
 
-        with open('products.json') as data_file:
+        with open(('products.json'), "r", encoding='UTF8') as data_file:
             data = json.load(data_file)
 
         for singleProduct in data:
