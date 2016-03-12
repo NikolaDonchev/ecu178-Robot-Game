@@ -55,6 +55,16 @@ class Engine():
                     self.change_stage("secondCheck")
                 elif self.handler == "third":
                     self.change_stage("thirdCheck")
+                 elif self.handler == "fourth":
+                        self.change_stage("fourthCheck")
+                elif self.handler == "fifth":
+                        self.change_stage("fifthCheck")
+                elif self.handler == "sixth":
+                        self.change_stage("sixthCheck")
+                elif self.handler == "seventh":
+                        self.change_stage("seventhCheck")
+                elif self.handler == "eight":
+                        self.change_stage("eightCheck")
 
             print(self.selectedItems)
 
