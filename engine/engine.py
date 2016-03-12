@@ -72,6 +72,20 @@ class Engine():
             self.clock.tick(self.fps)
             pygame.display.flip()
 
+    def bubble_sort(self,unsorted,sorted,selectedItems,tempArray):
+        unsorted[selectedItems] == True
+        sorted[selectedItems] == False
+        tempArray()
+
+        while unsorted (len(selectedItems)-1,0,-1):
+            for i in range(unsorted):
+                if unsorted[selectedItems]>unsorted[i+1]:
+                    tempArray = unsorted[i]
+                    unsorted[i] = unsorted[i+1]
+                    unsorted[i+1] = tempArray
+                    return (tempArray)
+                else:
+                    return(sorted)
 
     def change_view(self, view):
         self.display = pygame.display.set_mode((600,500))
