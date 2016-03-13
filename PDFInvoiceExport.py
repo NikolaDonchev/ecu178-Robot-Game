@@ -1,5 +1,5 @@
 import pygame, sys
-#from weasyprint import HTML, CSS
+from weasyprint import HTML, CSS
 from gui.Controls import CreateTitle, Background, Button
 import time
 
@@ -7,7 +7,7 @@ green = (156, 219, 151)
 green_bright = (0,150,0)
 emptyBackground = pygame.image.load("assets/empty_background.png")
 
-class InvoiceEngine():
+class Engine():
     def __init__(self):
         pygame.init()
         self.clock = pygame.time.Clock()
@@ -22,8 +22,8 @@ class InvoiceEngine():
                     sys.exit()
 
             for object in objects:
-                object.update(event)
-                self.handler = object.update(event)
+                object.update(event, "")
+                self.handler = object.update(event, "")
 
                 if self.handler == "downloadInvoice":
                     GenerateInvoice().invoice(items)
@@ -40,11 +40,10 @@ class InvoiceView():
             Background(self.display, emptyBackground), # Setting the background
             CreateTitle(self.display, "Do you want to download your invoice?", 24, 40),
             Button(self.display, "DOWNLOAD INVOICE", 190, 280, 223, 48, green, green_bright, "downloadInvoice")
-            # Button(self.display, "EXIT", 190, 340, 223, 48, green, green_bright, "home")
         ]
         # Adding all of the components in an array
 
-        InvoiceEngine().main_loop(self.objects, self.items)
+        Engine().main_loop(self.objects, self.items)
         # running the main loop and giving the array as parameter
 
     def get_items(self):
@@ -54,10 +53,19 @@ class GenerateInvoice():
     def __init__(self):
         pass
 
+    def bubbleSort(self, listForSort):
+        for passnum in range(len(listForSort)-1,0,-1):
+            for i in range(passnum):
+                if listForSort[i]['productPrice']>listForSort[i+1]['productPrice']:
+                    temp = listForSort[i]
+                    listForSort[i] = listForSort[i+1]
+                    listForSort[i+1] = temp
+
     def invoice(self, items):
         today = time.strftime("%d/%m/%Y")
         invoiceItems = ""
         totalAmount = 0
+        self.bubbleSort(items)
 
         for selectedProduct in items:
             totalAmount = totalAmount + selectedProduct['productPrice']
@@ -91,22 +99,9 @@ class GenerateInvoice():
                     </tr>
         '''
 
-        secondPart = '''
-            </table>
-        </body>
-        </html>
-        '''
+        secondPart = '''</table></body></html>'''
 
-        invoiceContent = firstPart + invoiceItems + secondPart
+        invoiceContent = firstPart + invoiceItems + secondPart # merging the header, data and footer
 
         HTML(string=invoiceContent).write_pdf('your-invoice.pdf',
         stylesheets=[CSS(string='body { background-color: white; font-family: Helvetica, Arial } * { margin: 0; padding: 0; } th { text-align: left } p, h2 { padding: 5px; }')])
-
-
-# with open('products2.json') as data_file:
-#     data = json.load(data_file)
-#
-# # Raw values from json for testing
-#
-# InvoiceEngine()
-# InvoiceView(data)
