@@ -13,7 +13,7 @@ black = (107, 107, 107)
 green = (156, 219, 151)
 green_bright = (0,150,0)
 
-musicOn = False
+
 
 
 class Gui():
@@ -32,10 +32,6 @@ class Engine():
         self.fps = 60
         self.event = None
         self.selectedItems = []
-        if musicOn:
-            self.music = pygame.mixer.music.load('music.mp3')
-            self.play_music = pygame.mixer.music.play(0, 0.0)
-
 
 
     def main_loop(self, objects): #The Main game loop, everything here takes place into the game
@@ -194,3 +190,9 @@ class OptionsScreen():
         ]
 
         Engine().main_loop(self.objects)
+
+
+
+
+
+
