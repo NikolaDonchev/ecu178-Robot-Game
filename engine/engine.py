@@ -13,11 +13,18 @@ black = (107, 107, 107)
 green = (156, 219, 151)
 green_bright = (0,150,0)
 
+musicOn = False
+
+
 class Gui():
     def __init__(self):
         self.display = pygame.display.set_mode((600,510))
 
+
+
 class Engine():
+
+
     def __init__(self):
         pygame.init()
         self.view = None
@@ -25,9 +32,15 @@ class Engine():
         self.fps = 60
         self.event = None
         self.selectedItems = []
+        if musicOn:
+            self.music = pygame.mixer.music.load('music.mp3')
+            self.play_music = pygame.mixer.music.play(0, 0.0)
+
+
 
     def main_loop(self, objects): #The Main game loop, everything here takes place into the game
         while 1:
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -45,6 +58,17 @@ class Engine():
                      Core()
                 elif self.handler == "home":
                     StartScreen()
+                elif self.handler == "music":
+                    MusicLoop()
+                elif self.handler == "OnOff":
+                    print("MUSIC")
+                    global musicOn
+                    musicOn = True
+                elif self.handler == "+":
+                    pass
+                elif self.handler == "-":
+                    pass
+
                 elif self.handler == "exit":
                     pygame.QUIT
                     sys.exit()
@@ -66,8 +90,9 @@ class Engine():
                         self.change_stage("seventhCheck")
                 elif self.handler == "eight":
                         self.change_stage("eightCheck")
-
+            print(musicOn)
             print(self.selectedItems)
+
 
             self.clock.tick(self.fps)
             pygame.display.flip()
@@ -163,9 +188,22 @@ class OptionsScreen():
         self.display = Gui().display
         self.objects = [
             Background(self.display, optionsBackground),
-            Button(self.display, "MUSIC", 220, 280, 163, 48, green, green_bright, ""), # individual feature
+            Button(self.display, "MUSIC", 220, 280, 163, 48, green, green_bright, "music"), # individual feature
             Button(self.display, "ITEMS", 220, 340, 163, 48, green, green_bright, ""), # individual feature
             Button(self.display, "BACK", 220, 400, 163, 48, green, green_bright, "home")
         ]
 
         Engine().main_loop(self.objects)
+
+"""class MusicLoop():
+    def __init__(self):
+        self.display = Gui().display
+        self.objects = [
+            Background(self.display, menuBackground),
+            Button(self.display, "Music ON/OFF", 220, 280, 163, 48, green, green_bright, "OnOff"),
+            Button(self.display, "Volume +", 220, 340, 80, 48, green, green_bright, "+"),
+            Button(self.display, "Valume -", 303, 340, 80, 48, green, green_bright, "-"),
+            Button(self.display, "BACK", 220, 400, 163, 48, green, green_bright, "option")
+        ]
+
+        Engine().main_loop(self.objects)"""
