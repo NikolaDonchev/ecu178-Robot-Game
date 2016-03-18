@@ -2,6 +2,7 @@ import pygame, sys
 from weasyprint import HTML, CSS
 from gui.Controls import CreateTitle, Background, Button
 import time
+import json
 
 green = (156, 219, 151)
 green_bright = (0,150,0)
@@ -61,6 +62,18 @@ class GenerateInvoice():
                     listForSort[i] = listForSort[i+1]
                     listForSort[i+1] = temp
 
+    def insertionSort(self, listForSort):
+        for index in range(1,len(listForSort)):
+
+            currentvalue = listForSort[index]
+            position = index
+
+            while position > 0 and listForSort[position-1]['productPrice'] > currentvalue['productPrice']:
+                listForSort[position]=listForSort[position-1]
+                position = position-1
+
+            listForSort[position]=currentvalue
+
     def invoice(self, items):
         today = time.strftime("%d/%m/%Y")
         invoiceItems = ""
@@ -105,3 +118,10 @@ class GenerateInvoice():
 
         HTML(string=invoiceContent).write_pdf('your-invoice.pdf',
         stylesheets=[CSS(string='body { background-color: white; font-family: Helvetica, Arial } * { margin: 0; padding: 0; } th { text-align: left } p, h2 { padding: 5px; }')])
+
+
+with open(('products2.json'), "r", encoding='UTF8') as data_file:
+    data = json.load(data_file)
+
+engine = Engine()
+InvoiceView(data)
